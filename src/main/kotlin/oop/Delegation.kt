@@ -24,6 +24,13 @@ fun main() {
     p.printFax()
     p.printText()
     p.setMessage()
+
+    val aa = Another()
+    val aaa = AnotherDelegation(aa)
+    aaa.printText()
+    aaa.setMessage()
+    val aaa2 = AnotherDelegation2(aa)
+    aaa2.setMessage()//А вот printText() уже вызвать нельзя, так как имплементировали только Receiver.
 }
 
 interface Printer {
@@ -61,3 +68,18 @@ class Fax(pr: LaserPrinter, lpr: LaserPrinterReceiver) : Printer by pr,
         println("The fax is working.")
     }
 }
+
+class Another : Receiver, Printer {
+    override fun setMessage() {
+        println("Ку- ку")
+    }
+
+    override fun printText() {
+        println("Ку- ку. I'm Vova.")
+    }
+}
+
+//Вот как можно делегировать объекту, класс которого имплементирует несколько интерфейсов.
+class AnotherDelegation(a: Another) : Receiver by a, Printer by a
+
+class AnotherDelegation2(a: Another) : Receiver by a
