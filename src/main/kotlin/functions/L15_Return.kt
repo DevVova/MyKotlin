@@ -15,7 +15,7 @@ package functions
 
 fun main() {
     simpleFun(77)
-    println(sum(34747, 38383))
+    println(sum22(34747, 38383))
 }
 
 fun simpleFun(a: Int) {
@@ -26,6 +26,6 @@ fun simpleFun(a: Int) {
     println("a меньше 100")
 }
 
-fun sum(a: Int, b: Int): Int {
+fun sum22(a: Int, b: Int): Int {
     return a + b
 }
