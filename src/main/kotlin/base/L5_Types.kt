@@ -72,3 +72,7 @@ fun main() {
     any = 78
     println(any)
 }
+
+fun simpleFun() {
+    println("This is for lesson N24")
+}
