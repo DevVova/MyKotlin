@@ -18,14 +18,19 @@ fun main() {
     val petya = Sun1("Petya", 21)
     petya.printNewInfo()
     petya.printInfo()
+    println()
 
     val fedya = Sun2("Fedya", 17)
     fedya.printInfo()
     println(fedya.name)
+    println()
+
+    val vova = Sun3("Trader", "Vova", 45)
+    vova.printInfo()
 }
 
 open class Mother(private val age: Int = 45) {
-    fun printInfo() {
+    open fun printInfo() {
         println("This is a human. He's $age years old.")
     }
 }
@@ -43,5 +48,17 @@ class Sun2 : Mother {
     //В конструкторе нельзя указывать val для параметров, так как среда говорит что это вторичный конструктор, а в нём не указывают.
     constructor(inName: String, age: Int): super(age) {
         this.name = inName
+    }
+}
+
+class Sun3(private val name: String, private val age: Int): Mother(age) {
+    var profession = ""
+    constructor(profession: String, name: String, age: Int) : this(name, age) {
+        this.profession = profession
+    }
+
+    override fun printInfo() {
+        super.printInfo()
+        println("Добавочная функция. Профессия человека $profession.")
     }
 }
