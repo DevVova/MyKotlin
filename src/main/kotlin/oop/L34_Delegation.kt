@@ -15,6 +15,7 @@ package oop
  * параметра объект этого класса и затем обращаться к функциям
  * того класса, хотя по факту сам класс эти функции не выполняет,
  * а он делегирует это другому.
+ * По аналогии с функциями объект может делегировать обращение к свойствам.
  */
 
 fun main() {
@@ -24,6 +25,7 @@ fun main() {
     p.printFax()
     p.printText()
     p.setMessage()
+    println()
 
     val aa = Another()
     val aaa = AnotherDelegation(aa)
@@ -62,7 +64,7 @@ class LaserPrinterReceiver(private val nameDevice: String) : Receiver {
 функции другого объекта, которому он это делегирует.
  */
 //После конструктора нужно будет сделать отступ перед двоеточием.
-class Fax(pr: LaserPrinter, lpr: LaserPrinterReceiver) : Printer by pr,
+class Fax(pr: Printer, lpr: Receiver) : Printer by pr,
     Receiver by lpr {
     fun printFax() {
         println("The fax is working.")
@@ -82,4 +84,9 @@ class Another : Receiver, Printer {
 //Вот как можно делегировать объекту, класс которого имплементирует несколько интерфейсов.
 class AnotherDelegation(a: Another) : Receiver by a, Printer by a
 
-class AnotherDelegation2(a: Another) : Receiver by a
+class AnotherDelegation2(a: Another) : Receiver by a {
+    //Класс может переопределять часть функций интерфейса, в этом случае выполнение этих функций не делегируется.
+    override fun setMessage() {
+        println("Это не делегируется.")
+    }
+}
